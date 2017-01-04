@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Cuidador</string>
+    <string name="email">Email: </string>
+    <string name="morada">Morada: </string>
+    <string name="nome1">Nome: </string>
+    <string name="descri_o">Descrição:</string>
+    <string name="material">Material:</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="logout">LogOut</string>
+    <string name="estado">Estado:</string>
+</resources>
