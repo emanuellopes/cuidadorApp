@@ -43,17 +43,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         txtUsername = (EditText) findViewById(R.id.editTextUsername);
         txtPassword = (EditText) findViewById(R.id.editTextPassword);
         //testeInfo();
         loginButton = (Button) findViewById(R.id.buttonLogin);
 
-        if (Manager.INSTANCE.getLogin(this) != "") {
+       /* if (Manager.INSTANCE.getLogin(this) != "") {
             startActivity(new Intent(MainActivity.this, CuidadorActivity.class));
             new UpdateMaterial().execute(Global.listarMateriais, Manager.INSTANCE.getUsername(),
                     Manager.INSTANCE.getPassword());
-        }
+        }*/
     }
 
     private void testeInfo() {

@@ -41,6 +41,9 @@ public class CuidadorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuidador);
+
+        setTitle("Cuidador - "+ Manager.INSTANCE.getUsername());
+
         listView = (ListView) findViewById(R.id.listViewUtentes);
 
         updateFromInternet();

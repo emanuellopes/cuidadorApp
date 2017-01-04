@@ -61,7 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView5"
             android:layout_alignParentStart="true"
-            android:id="@+id/spinnerMaterial" />
+            android:id="@+id/spinnerMaterial"
+            android:layout_toStartOf="@+id/buttonCancel" />
 
         <Button
             android:textColor="#5CB8FF"
@@ -108,5 +109,14 @@
             android:layout_below="@+id/textView2"
             android:layout_alignParentStart="true"
             android:id="@+id/spinnerEstado" />
+
+        <Button
+            android:text="Ver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonVerMaterial"
+            android:layout_below="@+id/editTextDescricao"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="11dp" />
     </RelativeLayout>
 </LinearLayout>

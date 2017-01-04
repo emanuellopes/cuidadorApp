@@ -1,6 +1,8 @@
 package pt.app.cuidador.cuidador.Activities;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.scalified.fab.ActionButton;
 
+import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -69,6 +73,8 @@ public class ProcedimentoActivity extends AppCompatActivity {
 
         position = getIntent().getIntExtra(Global.UTENTE, -1);
 
+        setTitle("Procedimento - "+ Manager.INSTANCE.getListaUtentes().get(position).getNome());
+
         listView = (ListView) findViewById(R.id.listViewProcedimentos);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,6 +114,7 @@ public class ProcedimentoActivity extends AppCompatActivity {
 
         View view = getLayoutInflater().inflate(R.layout.dialog_add_procedimento, null);
         final EditText identificador = (EditText) view.findViewById(R.id.editTextIdentificador);
+
         if(edit){
             identificador.setEnabled(false);
         }
@@ -121,6 +128,15 @@ public class ProcedimentoActivity extends AppCompatActivity {
                 R.layout.laoyout_spinner, Manager.INSTANCE.getListaMaterial());
 
         spinnerMaterial.setAdapter(adapterMaterial);
+
+        Button buttonVerMaterial = (Button) view.findViewById(R.id.buttonVerMaterial);
+
+        buttonVerMaterial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                detalhesMaterial((Material) spinnerMaterial.getSelectedItem());
+            }
+        });
 
         final ArrayAdapter<EstadoProcedimento> adapterEstado = new ArrayAdapter<>(ProcedimentoActivity.this,
                 R.layout.laoyout_spinner, EstadoProcedimento.values());
@@ -181,6 +197,43 @@ public class ProcedimentoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+            }
+        });
+
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
+    private void detalhesMaterial(final Material material){
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_Holo_Light_NoActionBar);
+
+        View view = getLayoutInflater().inflate(R.layout.dialog_ver_material, null);
+        TextView txtTipo = (TextView) view.findViewById(R.id.textViewTipoMaterial);
+        TextView txtDescricao = (TextView) view.findViewById(R.id.textViewDescricaoMaterial);
+        Button btnLink = (Button) view.findViewById(R.id.buttonLink);
+        Button btnDone = (Button) view.findViewById(R.id.buttonDoneMaterial);
+
+
+        txtTipo.setText(""+material.getTipo());
+        txtDescricao.setText(""+material.getDescricao());
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        if(material.getLink().equals("ND") || material.getLink().equals("")){
+            btnLink.setVisibility(View.GONE);
+        }
+
+        btnLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(material.getLink()));
+                startActivity(i);
             }
         });
 
